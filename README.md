@@ -1,4 +1,5 @@
 Proficiency Showcase
+
 In developing this 2-page movie showcase application using TypeScript and React, I focused on several key aspects that demonstrate my proficiency in front-end development and my ability to leverage these technologies effectively.
 
 1. Modular Component Architecture
@@ -23,6 +24,7 @@ These elements collectively demonstrate my proficiency in building a well-struct
 
 
 Potential Improvements with Additional Time
+
 If I had an extra 4 hours to dedicate to enhancing this movie showcase application, I would focus on the following improvements to further elevate its quality and user experience:
 
 3. Sorting and Filtering Options
