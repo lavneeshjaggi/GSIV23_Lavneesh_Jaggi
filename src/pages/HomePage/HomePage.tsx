@@ -28,14 +28,22 @@ const HomePage = () => {
         );
         const results: Movie[] = response.data.results;
 
+        if (
+          !results.length ||
+          results.every((result, index) => result === movies[index])
+        ) {
+          setLoading(false);
+          return;
+        }
+
         setLoading(false);
         setPage(Number(parameters.page) + 1);
         setMovies((prevItems: Movie[]) => [...prevItems, ...results]);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error({ error });
       }
     },
-    []
+    [movies]
   );
 
   const searchMovies = useCallback(async () => {
@@ -49,16 +57,16 @@ const HomePage = () => {
   }, [fetchMovies]);
 
   const discoverMovies = useCallback(async () => {
-    if (query) {
-      searchMovies();
+    const shouldLoadMore =
+      window.outerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 600;
+
+    if (!shouldLoadMore) {
       return;
     }
 
-    const shouldLoadMore =
-      window.outerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 500;
-
-    if (!shouldLoadMore && movies.length) {
+    if (query) {
+      searchMovies();
       return;
     }
 
@@ -73,7 +81,7 @@ const HomePage = () => {
       `https://api.themoviedb.org/3/discover/movie`,
       parameters
     );
-  }, [fetchMovies, movies.length, searchMovies]);
+  }, [fetchMovies, searchMovies]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newQuery = event.target.value;
@@ -92,7 +100,7 @@ const HomePage = () => {
         setMovies([]);
         discoverMovies();
       }
-    }, 500);
+    }, 600);
   };
 
   const showDetails = (id: number) => {
