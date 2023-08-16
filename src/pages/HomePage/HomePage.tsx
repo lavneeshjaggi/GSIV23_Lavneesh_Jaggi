@@ -56,7 +56,7 @@ const HomePage = () => {
 
     const shouldLoadMore =
       window.outerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 300;
+      document.documentElement.offsetHeight - 500;
 
     if (!shouldLoadMore && movies.length) {
       return;
@@ -92,11 +92,12 @@ const HomePage = () => {
         setMovies([]);
         discoverMovies();
       }
-    }, 300);
+    }, 500);
   };
 
   const showDetails = (id: number) => {
     page = 1;
+    query = "";
     navigate(`/${id}`);
   };
 

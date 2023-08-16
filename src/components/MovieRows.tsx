@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 import { Movie } from "../Types";
+import MovieCard from "./MovieCard";
 import { calculateRows } from "../Config";
 
 type Props = {
@@ -37,83 +38,15 @@ const MovieRows = (props: Props) => {
               const { id, poster_path, title, vote_average, overview } = movie;
 
               return (
-                <Grid
-                  item
+                <MovieCard
+                  id={id}
                   key={id}
-                  onClick={() => showDetails(id)}
-                  style={{ minHeight: "18.9rem", cursor: "pointer" }}
-                >
-                  <Paper
-                    style={{
-                      height: "100%",
-                      width: "15.9rem",
-                      cursor: "pointer",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <img
-                      alt={title}
-                      src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                      style={{
-                        width: "15.9rem",
-                        height: "18.9rem",
-                        borderTopLeftRadius: "8px",
-                        borderTopRightRadius: "8px",
-                      }}
-                    />
-
-                    <Grid
-                      style={{
-                        padding: "8px",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Grid
-                        container
-                        justifyContent="space-between"
-                        alignItems="flex-start"
-                      >
-                        <Typography
-                          variant="body2"
-                          style={{
-                            lineHeight: "1.4",
-                            maxHeight: "2.8em",
-                            overflow: "hidden",
-                            WebkitLineClamp: 1,
-                            marginTop: "0.5rem",
-                            display: "-webkit-box",
-                            textOverflow: "ellipsis",
-                            WebkitBoxOrient: "vertical",
-                            marginRight: "8px", // Add some spacing between the two elements
-                          }}
-                        >
-                          {title}
-                        </Typography>
-                        <Typography variant="body2">{vote_average}</Typography>
-                      </Grid>
-
-                      <Grid>
-                        <Typography
-                          color="gray"
-                          variant="body2"
-                          style={{
-                            lineHeight: "1.4",
-                            maxHeight: "2.8em",
-                            overflow: "hidden",
-                            WebkitLineClamp: 2,
-                            marginTop: "0.5rem",
-                            display: "-webkit-box",
-                            textOverflow: "ellipsis",
-                            WebkitBoxOrient: "vertical",
-                          }}
-                        >
-                          {overview}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Paper>
-                </Grid>
+                  title={title}
+                  overview={overview}
+                  posterPath={poster_path}
+                  showDetails={showDetails}
+                  voteAverage={vote_average}
+                />
               );
             })}
           </Grid>
